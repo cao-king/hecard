@@ -251,65 +251,146 @@ body {
 .petal:nth-child(5) { transform: rotate(240deg); }
 .petal:nth-child(6) { transform: rotate(300deg); }
 
-/* 花心 - 精确位于所有花瓣中心 */
-.flower-center {
+/* ==== 花朵造型完整修复 ==== */
+
+.flower-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 280px;
+    margin: 20px 0 30px;
+    position: relative;
+}
+
+/* 花朵容器 */
+.flower {
+    width: 160px;  /* 增加容器宽度，为花瓣留出更多空间 */
+    height: 160px; /* 增加容器高度 */
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    margin: 0 auto;
+    transform: translateY(10px); /* 稍微下移，给花茎留出空间 */
+}
+
+/* 花瓣 - 使用统一的中心点定位 */
+.petal {
     position: absolute;
-    width: 30px;
-    height: 30px;
-    background: linear-gradient(135deg, #ffd700, #ffed4e);
-    border-radius: 50%;
-    /* 关键修复：精确居中，与花瓣使用相同的定位逻辑 */
+    width: 50px;   /* 稍微增大花瓣 */
+    height: 70px;
+    background: linear-gradient(to bottom, #ff9ec0, #ff6b9d);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; /* 更自然的花瓣形状 */
+    /* 关键：所有花瓣都从同一个中心点出发 */
     top: 50%;
     left: 50%;
-    margin-top: -15px; /* 高度的一半 */
-    margin-left: -15px; /* 宽度的一半 */
-    z-index: 3; /* 确保花心在最上层 */
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    margin-top: -35px; /* 高度的一半 */
+    margin-left: -25px; /* 宽度的一半 */
+    transform-origin: center 60px; /* 围绕底部中心旋转 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.petal:nth-child(1) { transform: rotate(0deg) translateY(-15px); }
+.petal:nth-child(2) { transform: rotate(60deg) translateY(-15px); }
+.petal:nth-child(3) { transform: rotate(120deg) translateY(-15px); }
+.petal:nth-child(4) { transform: rotate(180deg) translateY(-15px); }
+.petal:nth-child(5) { transform: rotate(240deg) translateY(-15px); }
+.petal:nth-child(6) { transform: rotate(300deg) translateY(-15px); }
+
+/* 花心 - 精确居中 */
+.flower-center {
+    position: absolute;
+    width: 40px;   /* 增大花心 */
+    height: 40px;
+    background: radial-gradient(circle at 30% 30%, #ffed4e, #ffd700 70%);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    margin-top: -20px; /* 高度的一半 */
+    margin-left: -20px; /* 宽度的一半 */
+    z-index: 3;
+    box-shadow: 
+        0 0 15px rgba(255, 215, 0, 0.7),
+        inset 0 0 10px rgba(255, 255, 255, 0.5);
     cursor: pointer;
     transition: all 0.3s ease;
+    border: 2px solid rgba(255, 235, 150, 0.8);
 }
 
 .flower-center:hover {
-    background: linear-gradient(135deg, #ffed4e, #ffd700);
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.9);
+    transform: scale(1.1);
+    box-shadow: 
+        0 0 20px rgba(255, 215, 0, 0.9),
+        inset 0 0 15px rgba(255, 255, 255, 0.7);
 }
 
-/* 花茎 - 从花朵中心正下方延伸 */
+/* 花茎 - 从花朵正下方延伸 */
 .flower-stem {
     position: absolute;
-    width: 8px;
-    height: 150px;
-    background: linear-gradient(to bottom, #228B22, #2E8B57);
+    width: 10px;   /* 稍宽的花茎 */
+    height: 180px;
+    background: linear-gradient(to bottom, #2E8B57, #228B22, #2E8B57);
     top: 50%;
     left: 50%;
-    margin-left: -4px; /* 茎宽的一半，使其居中 */
+    margin-left: -5px; /* 宽度的一半 */
+    margin-top: 60px;  /* 从中心点向下偏移 */
     z-index: 1;
-    border-radius: 0 0 4px 4px;
+    border-radius: 5px;
+    box-shadow: 
+        inset 0 0 10px rgba(0, 0, 0, 0.1),
+        0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* 叶子 - 对称地位于花茎两侧 */
+/* 叶子 - 改进的样式 */
 .leaf {
     position: absolute;
-    width: 30px;
-    height: 20px;
-    background: linear-gradient(135deg, #2E8B57, #3CB371);
-    border-radius: 50%;
+    width: 35px;
+    height: 25px;
+    background: linear-gradient(135deg, #3CB371, #2E8B57);
+    border-radius: 50% 20% 50% 20%;
     z-index: 1;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .leaf-1 {
-    top: 60%; /* 相对于花茎顶端的位置 */
-    left: calc(50% - 25px); /* 从中心向左偏移 */
-    transform: rotate(-30deg);
+    top: 70%;
+    left: calc(50% - 40px);
+    transform: rotate(-45deg) skewX(10deg);
 }
 
 .leaf-2 {
-    top: 75%; /* 比第一片叶子稍低 */
-    left: calc(50% + 5px); /* 从中心向右偏移 */
-    transform: rotate(30deg);
+    top: 80%;
+    left: calc(50% + 15px);
+    transform: rotate(45deg) skewX(-10deg);
 }
-/* ==== 修复结束 ==== */
 
+/* 花朵悬停效果 */
+.flower:hover .petal {
+    animation: petalBreath 1.5s infinite alternate;
+}
+
+.flower:hover .flower-center {
+    animation: centerPulse 1s infinite alternate;
+}
+
+@keyframes petalBreath {
+    0% { transform: rotate(var(--rot)) translateY(-15px) scale(1); }
+    100% { transform: rotate(var(--rot)) translateY(-18px) scale(1.05); }
+}
+
+@keyframes centerPulse {
+    0% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.7); }
+    100% { box-shadow: 0 0 25px rgba(255, 215, 0, 0.9); }
+}
+
+/* 设置每个花瓣的旋转角度变量 */
+.petal:nth-child(1) { --rot: 0deg; }
+.petal:nth-child(2) { --rot: 60deg; }
+.petal:nth-child(3) { --rot: 120deg; }
+.petal:nth-child(4) { --rot: 180deg; }
+.petal:nth-child(5) { --rot: 240deg; }
+.petal:nth-child(6) { --rot: 300deg; }
+
+/* 花瓣飘落容器 */
 .flowers-container {
     position: absolute;
     top: 0;
@@ -321,131 +402,12 @@ body {
     overflow: hidden;
 }
 
-/* 小作文区域 */
-.essay-section {
-    margin: 40px 0;
-    background: #fff;
-    border-radius: 15px;
-    border: 2px solid #e3d0ff;
-    box-shadow: 0 5px 20px rgba(138, 35, 135, 0.1);
-    overflow: hidden;
-}
-
-.section-header {
-    background: linear-gradient(135deg, #8a2387, #e94057);
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
-}
-
-.section-header h3 {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.3rem;
-    margin: 0;
-}
-
-.word-count {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    backdrop-filter: blur(5px);
-}
-
-.essay-container {
-    padding: 20px;
-    position: relative;
-}
-
-.essay-paper {
-    position: relative;
-    background: #fffef0;
-    border-radius: 8px;
-    padding: 30px;
-    min-height: 300px;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-    border: 1px solid #ffeaa7;
-}
-
-.essay-lines {
-    position: absolute;
-    top: 30px;
-    left: 30px;
-    right: 30px;
-    bottom: 30px;
-    pointer-events: none;
-}
-
-.essay-lines .line {
-    height: 1px;
-    background: linear-gradient(to right, transparent 5%, #ffeaa7 20%, #ffeaa7 80%, transparent 95%);
-    margin-bottom: 24px;
-}
-
-.essay-lines .line:last-child {
-    margin-bottom: 0;
-}
-
-#essayText {
-    width: 100%;
-    min-height: 250px;
-    border: none;
-    background: transparent;
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #2d3436;
-    font-family: 'Microsoft YaHei', 'KaiTi', serif;
-    resize: vertical;
-    position: relative;
-    z-index: 1;
-    outline: none;
-    padding: 0;
-}
-
-#essayText::placeholder {
-    color: #b2bec3;
-    font-style: italic;
-}
-
-/* 消息区域 */
-.message-section {
-    margin: 40px 0;
-}
-
-.message-section h3 {
-    color: #8a2387;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.3rem;
-}
-
-.message-area {
-    background: linear-gradient(135deg, rgba(233, 64, 87, 0.05), rgba(138, 35, 135, 0.05));
-    border-radius: 15px;
-    padding: 30px;
-    border-left: 5px solid #e94057;
-}
-
-.message-text {
-    line-height: 1.8;
-    color: #2d3436;
-    font-size: 1.1rem;
-    text-align: center;
-}
-
-/* 花瓣飘落动画 */
 .petal-fall {
     position: absolute;
     width: 20px;
     height: 20px;
     background: linear-gradient(135deg, #ff6b9d, #ff9ec0);
-    border-radius: 50% 50% 50% 0;
+    border-radius: 50% 20% 50% 20%;
     transform: rotate(45deg);
     pointer-events: none;
     z-index: 2;
@@ -453,6 +415,8 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     animation: petalFall linear forwards;
 }
+
+/* ==== 修复结束 ==== */
 
 @keyframes petalFall {
     0% {
