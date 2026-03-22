@@ -1,3 +1,224 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #e6d8f0 0%, #f9f2ff 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+}
+
+/* 信封封面样式 */
+.envelope-cover {
+    background: linear-gradient(135deg, #8a2387, #e94057, #f27121);
+    border-radius: 10px;
+    padding: 50px 30px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 20px 40px rgba(138, 35, 135, 0.3);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    overflow: hidden;
+}
+
+.envelope-cover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(138, 35, 135, 0.4);
+}
+
+.envelope-cover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, 
+        transparent 30%, 
+        rgba(255, 255, 255, 0.1) 50%, 
+        transparent 70%);
+    animation: shine 3s infinite linear;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.seal {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    border-radius: 50%;
+    margin: 0 auto 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: white;
+    box-shadow: 0 10px 20px rgba(255, 107, 107, 0.4);
+    animation: pulse 2s infinite;
+    cursor: pointer;
+    border: 4px solid white;
+    position: relative;
+    z-index: 2;
+}
+
+.seal:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 30px rgba(255, 107, 107, 0.6);
+}
+
+.seal:active {
+    transform: scale(0.95);
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.cover-content h1 {
+    color: white;
+    font-size: 3rem;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 2px;
+}
+
+.cover-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    font-weight: 300;
+}
+
+.cover-hint {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    margin-top: 20px;
+    animation: fadeInOut 2s infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+.cover-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(135deg, #e94057, #8a2387);
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+    opacity: 0.8;
+    z-index: 1;
+}
+
+/* 信封内页样式 */
+.envelope-content {
+    display: none;
+    animation: slideUp 0.8s ease-out;
+}
+
+.envelope-content.active {
+    display: block;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(138, 35, 135, 0.1);
+    border: 2px solid #8a2387;
+    color: #8a2387;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.back-btn:hover {
+    background: #8a2387;
+    color: white;
+    transform: translateX(-3px);
+}
+
+.header {
+    text-align: center;
+    margin: 20px 0 40px;
+    padding-top: 20px;
+}
+
+.header h1 {
+    color: #8a2387;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.heart-icon {
+    color: #e94057;
+    font-size: 1.8rem;
+    animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.header p {
+    color: #666;
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
 /* ==== 花朵造型修复 ==== */
 .flower {
     width: 120px;
@@ -45,6 +266,12 @@
     z-index: 3; /* 确保花心在最上层 */
     box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.flower-center:hover {
+    background: linear-gradient(135deg, #ffed4e, #ffd700);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.9);
 }
 
 /* 花茎 - 从花朵中心正下方延伸 */
@@ -65,7 +292,7 @@
     position: absolute;
     width: 30px;
     height: 20px;
-    background-color: #2E8B57;
+    background: linear-gradient(135deg, #2E8B57, #3CB371);
     border-radius: 50%;
     z-index: 1;
 }
@@ -82,3 +309,241 @@
     transform: rotate(30deg);
 }
 /* ==== 修复结束 ==== */
+
+.flowers-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* 小作文区域 */
+.essay-section {
+    margin: 40px 0;
+    background: #fff;
+    border-radius: 15px;
+    border: 2px solid #e3d0ff;
+    box-shadow: 0 5px 20px rgba(138, 35, 135, 0.1);
+    overflow: hidden;
+}
+
+.section-header {
+    background: linear-gradient(135deg, #8a2387, #e94057);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.section-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.word-count {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    backdrop-filter: blur(5px);
+}
+
+.essay-container {
+    padding: 20px;
+    position: relative;
+}
+
+.essay-paper {
+    position: relative;
+    background: #fffef0;
+    border-radius: 8px;
+    padding: 30px;
+    min-height: 300px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #ffeaa7;
+}
+
+.essay-lines {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    bottom: 30px;
+    pointer-events: none;
+}
+
+.essay-lines .line {
+    height: 1px;
+    background: linear-gradient(to right, transparent 5%, #ffeaa7 20%, #ffeaa7 80%, transparent 95%);
+    margin-bottom: 24px;
+}
+
+.essay-lines .line:last-child {
+    margin-bottom: 0;
+}
+
+#essayText {
+    width: 100%;
+    min-height: 250px;
+    border: none;
+    background: transparent;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #2d3436;
+    font-family: 'Microsoft YaHei', 'KaiTi', serif;
+    resize: vertical;
+    position: relative;
+    z-index: 1;
+    outline: none;
+    padding: 0;
+}
+
+#essayText::placeholder {
+    color: #b2bec3;
+    font-style: italic;
+}
+
+/* 消息区域 */
+.message-section {
+    margin: 40px 0;
+}
+
+.message-section h3 {
+    color: #8a2387;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.3rem;
+}
+
+.message-area {
+    background: linear-gradient(135deg, rgba(233, 64, 87, 0.05), rgba(138, 35, 135, 0.05));
+    border-radius: 15px;
+    padding: 30px;
+    border-left: 5px solid #e94057;
+}
+
+.message-text {
+    line-height: 1.8;
+    color: #2d3436;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+/* 花瓣飘落动画 */
+.petal-fall {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, #ff6b9d, #ff9ec0);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(45deg);
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    animation: petalFall linear forwards;
+}
+
+@keyframes petalFall {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(300px) rotate(360deg) scale(0.5);
+    }
+}
+
+.floating-flower {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0;
+    animation: floatUp 5s linear forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(100px) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* 隐藏类 */
+.hidden {
+    display: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .envelope-cover {
+        padding: 30px 20px;
+    }
+    
+    .cover-content h1 {
+        font-size: 2.2rem;
+    }
+    
+    .seal {
+        width: 80px;
+        height: 80px;
+        font-size: 30px;
+    }
+    
+    .card {
+        padding: 20px 15px;
+    }
+    
+    .header h1 {
+        font-size: 1.8rem;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .essay-paper {
+        padding: 20px 15px;
+    }
+    
+    .essay-lines {
+        left: 15px;
+        right: 15px;
+    }
+    
+    #essayText {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cover-content h1 {
+        font-size: 1.8rem;
+    }
+    
+    .header h1 {
+        font-size: 1.5rem;
+    }
+}
