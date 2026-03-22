@@ -1,257 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', 'Microsoft YaHei', sans-serif;
-}
-
-body {
-    background: linear-gradient(135deg, #e6d8f0 0%, #f9f2ff 100%);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    color: #333;
-}
-
-.container {
-    width: 100%;
-    max-width: 800px;
-    position: relative;
-}
-
-/* 信封封面样式 */
-.envelope-cover {
-    background: linear-gradient(135deg, #8a2387, #e94057, #f27121);
-    border-radius: 10px;
-    padding: 50px 30px;
-    text-align: center;
-    position: relative;
-    cursor: pointer;
-    box-shadow: 0 20px 40px rgba(138, 35, 135, 0.3);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-style: preserve-3d;
-    perspective: 1000px;
-    overflow: hidden;
-}
-
-.envelope-cover:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 25px 50px rgba(138, 35, 135, 0.4);
-}
-
-.envelope-cover::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(45deg, 
-        transparent 30%, 
-        rgba(255, 255, 255, 0.1) 50%, 
-        transparent 70%);
-    animation: shine 3s infinite linear;
-}
-
-@keyframes shine {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-
-.seal {
-    width: 100px;
-    height: 100px;
-    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-    border-radius: 50%;
-    margin: 0 auto 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 40px;
-    color: white;
-    box-shadow: 0 10px 20px rgba(255, 107, 107, 0.4);
-    animation: pulse 2s infinite;
-    cursor: pointer;
-    border: 4px solid white;
-    position: relative;
-    z-index: 2;
-}
-
-.seal:hover {
-    transform: scale(1.1);
-    box-shadow: 0 15px 30px rgba(255, 107, 107, 0.6);
-}
-
-.seal:active {
-    transform: scale(0.95);
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-}
-
-.cover-content h1 {
-    color: white;
-    font-size: 3rem;
-    margin-bottom: 15px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    letter-spacing: 2px;
-}
-
-.cover-subtitle {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    font-weight: 300;
-}
-
-.cover-hint {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 1rem;
-    margin-top: 20px;
-    animation: fadeInOut 2s infinite;
-}
-
-@keyframes fadeInOut {
-    0%, 100% { opacity: 0.8; }
-    50% { opacity: 1; }
-}
-
-.cover-flap {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background: linear-gradient(135deg, #e94057, #8a2387);
-    clip-path: polygon(0 0, 50% 100%, 100% 0);
-    opacity: 0.8;
-    z-index: 1;
-}
-
-/* 信封内页样式 */
-.envelope-content {
-    display: none;
-    animation: slideUp 0.8s ease-out;
-}
-
-.envelope-content.active {
-    display: block;
-}
-
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.card {
-    background: white;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    position: relative;
-}
-
-.back-btn {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: rgba(138, 35, 135, 0.1);
-    border: 2px solid #8a2387;
-    color: #8a2387;
-    padding: 8px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.back-btn:hover {
-    background: #8a2387;
-    color: white;
-    transform: translateX(-3px);
-}
-
-.header {
-    text-align: center;
-    margin: 20px 0 40px;
-    padding-top: 20px;
-}
-
-.header h1 {
-    color: #8a2387;
-    font-size: 2.2rem;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-}
-
-.heart-icon {
-    color: #e94057;
-    font-size: 1.8rem;
-    animation: heartbeat 1.5s infinite;
-}
-
-@keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-}
-
-.header p {
-    color: #666;
-    font-size: 1.1rem;
-    max-width: 500px;
-    margin: 0 auto;
-    line-height: 1.6;
-}
-
-/* ==== 花朵造型修复 ==== */
-.flower {
-    width: 120px;
-    height: 120px;
-    position: relative; /* 关键：设为相对定位，作为子元素定位的基准 */
-    z-index: 2;
-    cursor: pointer;
-    margin: 0 auto; /* 确保花朵在区域内水平居中 */
-}
-
-/* 花瓣 - 6个花瓣围绕中心旋转 */
-.petal {
-    position: absolute;
-    width: 40px;
-    height: 60px;
-    background: linear-gradient(to bottom, #ff9ec0, #ff6b9d);
-    border-radius: 50%;
-    /* 关键修复：将花瓣定位到容器正中心 */
-    top: 50%;
-    left: 50%;
-    margin-top: -30px; /* 向上移动自身高度的一半，实现垂直居中 */
-    margin-left: -20px; /* 向左移动自身宽度的一半，实现水平居中 */
-    transform-origin: center 45px; /* 围绕自身底部附近旋转，形成花朵形状 */
-}
-
-.petal:nth-child(1) { transform: rotate(0deg); }
-.petal:nth-child(2) { transform: rotate(60deg); }
-.petal:nth-child(3) { transform: rotate(120deg); }
-.petal:nth-child(4) { transform: rotate(180deg); }
-.petal:nth-child(5) { transform: rotate(240deg); }
-.petal:nth-child(6) { transform: rotate(300deg); }
-
-/* ==== 花朵造型完整修复 ==== */
+/* ==== 花朵造型完整修复（统一版本）==== */
 
 .flower-area {
     display: flex;
@@ -262,33 +9,33 @@ body {
     position: relative;
 }
 
-/* 花朵容器 */
+/* 花朵容器 - 统一尺寸和定位 */
 .flower {
-    width: 160px;  /* 增加容器宽度，为花瓣留出更多空间 */
-    height: 160px; /* 增加容器高度 */
+    width: 160px;
+    height: 160px;
     position: relative;
     z-index: 2;
     cursor: pointer;
     margin: 0 auto;
-    transform: translateY(10px); /* 稍微下移，给花茎留出空间 */
+    transform: translateY(10px);
 }
 
-/* 花瓣 - 使用统一的中心点定位 */
+/* 花瓣 - 统一尺寸和旋转中心 */
 .petal {
     position: absolute;
-    width: 50px;   /* 稍微增大花瓣 */
+    width: 50px;
     height: 70px;
     background: linear-gradient(to bottom, #ff9ec0, #ff6b9d);
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; /* 更自然的花瓣形状 */
-    /* 关键：所有花瓣都从同一个中心点出发 */
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     top: 50%;
     left: 50%;
-    margin-top: -35px; /* 高度的一半 */
-    margin-left: -25px; /* 宽度的一半 */
-    transform-origin: center 60px; /* 围绕底部中心旋转 */
+    margin-top: -35px;
+    margin-left: -25px;
+    transform-origin: center 60px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* 6个花瓣的旋转角度 */
 .petal:nth-child(1) { transform: rotate(0deg) translateY(-15px); }
 .petal:nth-child(2) { transform: rotate(60deg) translateY(-15px); }
 .petal:nth-child(3) { transform: rotate(120deg) translateY(-15px); }
@@ -299,14 +46,14 @@ body {
 /* 花心 - 精确居中 */
 .flower-center {
     position: absolute;
-    width: 40px;   /* 增大花心 */
+    width: 40px;
     height: 40px;
     background: radial-gradient(circle at 30% 30%, #ffed4e, #ffd700 70%);
     border-radius: 50%;
     top: 50%;
     left: 50%;
-    margin-top: -20px; /* 高度的一半 */
-    margin-left: -20px; /* 宽度的一半 */
+    margin-top: -20px;
+    margin-left: -20px;
     z-index: 3;
     box-shadow: 
         0 0 15px rgba(255, 215, 0, 0.7),
@@ -326,13 +73,13 @@ body {
 /* 花茎 - 从花朵正下方延伸 */
 .flower-stem {
     position: absolute;
-    width: 10px;   /* 稍宽的花茎 */
+    width: 10px;
     height: 180px;
     background: linear-gradient(to bottom, #2E8B57, #228B22, #2E8B57);
     top: 50%;
     left: 50%;
-    margin-left: -5px; /* 宽度的一半 */
-    margin-top: 60px;  /* 从中心点向下偏移 */
+    margin-left: -5px;
+    margin-top: 60px;
     z-index: 1;
     border-radius: 5px;
     box-shadow: 
@@ -340,7 +87,7 @@ body {
         0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* 叶子 - 改进的样式 */
+/* 叶子 - 对称样式 */
 .leaf {
     position: absolute;
     width: 35px;
@@ -372,11 +119,13 @@ body {
     animation: centerPulse 1s infinite alternate;
 }
 
+/* 花瓣呼吸动画 */
 @keyframes petalBreath {
     0% { transform: rotate(var(--rot)) translateY(-15px) scale(1); }
     100% { transform: rotate(var(--rot)) translateY(-18px) scale(1.05); }
 }
 
+/* 花心脉动动画 */
 @keyframes centerPulse {
     0% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.7); }
     100% { box-shadow: 0 0 25px rgba(255, 215, 0, 0.9); }
@@ -402,6 +151,7 @@ body {
     overflow: hidden;
 }
 
+/* 花瓣飘落动画 */
 .petal-fall {
     position: absolute;
     width: 20px;
@@ -415,8 +165,6 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     animation: petalFall linear forwards;
 }
-
-/* ==== 修复结束 ==== */
 
 @keyframes petalFall {
     0% {
@@ -452,62 +200,4 @@ body {
         opacity: 0;
     }
 }
-
-/* 隐藏类 */
-.hidden {
-    display: none;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-    .container {
-        padding: 10px;
-    }
-    
-    .envelope-cover {
-        padding: 30px 20px;
-    }
-    
-    .cover-content h1 {
-        font-size: 2.2rem;
-    }
-    
-    .seal {
-        width: 80px;
-        height: 80px;
-        font-size: 30px;
-    }
-    
-    .card {
-        padding: 20px 15px;
-    }
-    
-    .header h1 {
-        font-size: 1.8rem;
-        flex-direction: column;
-        gap: 5px;
-    }
-    
-    .essay-paper {
-        padding: 20px 15px;
-    }
-    
-    .essay-lines {
-        left: 15px;
-        right: 15px;
-    }
-    
-    #essayText {
-        font-size: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .cover-content h1 {
-        font-size: 1.8rem;
-    }
-    
-    .header h1 {
-        font-size: 1.5rem;
-    }
-}
+/* ==== 修复结束 ==== */
